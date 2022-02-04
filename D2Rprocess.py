@@ -121,6 +121,8 @@ Entry.grid(
 
 Ltext.bind("<ButtonPress-1>", WinstartMove)
 Ltext.bind('<B1-Motion>',WinMove)
+lab1.bind("<ButtonPress-1>", WinstartMove)
+lab1.bind('<B1-Motion>',WinMove)
 win.bind("<Button-3>", Winattributes)
 
 find_game()
