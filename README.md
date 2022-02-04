@@ -15,8 +15,7 @@ You can press mouse rightbutton to be transparent
 ![Process properties](https://github.com/Saxo0213/D2RMLunch/blob/main/image/05.PNG)
 
 
-# Diablo II Resurrected / D2R / MLunch
-- Download EXE Program
+# Download EXE Program
   - Download from GoogleDrive ==> [GoogleDrive](https://drive.google.com/file/d/1jKt1eKyVklDpK5nt6-196NnIuphAlTsL/view?usp=sharing)
   - Password: ShareBySaxo
 
@@ -42,11 +41,13 @@ No. python are often flagged as malicious or trojans. Feel free to download [pyt
   - 2、Copy D2R Folder
   - 3、In the BattleNet setting, Allow open another Battle.net
   - 4、Use 1st Folder D2RLunch, Login(Account A)、start game
-  - 5、when in lobby
-  - 5、when in lobby Use next Folder D2RLunch to Login(Account B) and start game
+  - 5、When in lobby, Use next D2R Folder Lunch to Login(Account B) and start game
+
 ![Process properties](https://github.com/Saxo0213/D2RMLunch/blob/main/image/02.PNG)
 
 # About pywinhandle different
+  pywinhandle code design by [yihleego](https://github.com/yihleego) ,It design to find handle and del it
+  
   because system only have one keyword, so I change the code out function when find it
 - before
         
