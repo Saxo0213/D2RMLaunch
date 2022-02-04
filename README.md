@@ -31,7 +31,7 @@ No. python are often flagged as malicious or trojans. Feel free to download [pyt
   - loop↓
   - 3、Login Battle Account
   - 4、Start Game
-  - 5、When in Lobby ,Close the game and Run D2RB.exe in Lobby
+  - 5、When see your characters ,Close the game and Run D2RB.exe in Lobby
   - 6、Logout Battle Account and start another account
 
 ![Process properties](https://github.com/Saxo0213/D2RMLunch/blob/main/image/01.PNG)
@@ -41,7 +41,7 @@ No. python are often flagged as malicious or trojans. Feel free to download [pyt
   - 2、Copy D2R Folder
   - 3、In the BattleNet setting, Allow open another Battle.net
   - 4、Use 1st Folder D2RLunch, Login(Account A)、start game
-  - 5、When in lobby, Use next D2R Folder Lunch to Login(Account B) and start game
+  - 5、When see your characters, Use next D2R Folder Lunch to Login(Account B) and start game
 
 ![Process properties](https://github.com/Saxo0213/D2RMLunch/blob/main/image/02.PNG)
 
