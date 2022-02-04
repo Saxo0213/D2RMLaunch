@@ -2,40 +2,61 @@
 import tkinter as tk
 import psutil
 import threading
-
+from time import sleep
 gamelist=[]
+NameList={}
+Mrun=0
 
-def M_DelProcess():
+Att=1
+
+def M_DelProcess(name):
+    global Mrun
     D2RL=[]
+    #sleep(1)
     try:
-        D2RL= py.find_handles_key(None,'D2R','DiabloII Check For Other Instances')
+        D2RL.append(py.find_handles_key(None,name,'DiabloII Check For Other Instances'))
     except:
         pass
-    if D2RL != 'None':
+    if D2RL.count('None') != len(D2RL):
         try:
-            py.close_handle(D2RL['process_id'],D2RL['handle'])
-            print('closed')
+            for L in D2RL:
+                py.close_handle(L['process_id'],L['handle'])
+                print('closed')
         except:
             pass
     else:
         print('no find')
+    Mrun-=1
+    if Mrun==0:
+        Ltext.config(foreground='black')
 
-def process_del():
-    PD=threading.Thread(target=M_DelProcess,daemon=True)
-    PD.start()
+
+def process_del(NameList):
+    global Mrun
+    if Mrun==0:
+        for name in NameList:
+            L=[name]
+            PD=threading.Thread(target=M_DelProcess,args=(L),daemon=True)
+            PD.start()
+            Mrun+=1
 
 def find_game():
-    global gamelist
+    global gamelist,NameList
     Chgamelist=[]
+    NameList={}
+    ExEname=Var_entry.get().split(',')
     for p in psutil.process_iter(['pid','name']):
-        if p.info['name'] == 'D2R.exe':
+        a=p.info['name'].split('.')
+        if a[0] in  ExEname:
             pid=p.info['pid']
             Chgamelist.append(pid)
-    if len(Chgamelist) != len(gamelist):
-        gamelist=Chgamelist
-        process_del()
-    Var_Ltext.set('DiabloII:'+str(len(gamelist)))
-    win.after(1000,find_game)
+            NameList[a[0]]=a[0]
+    if len(Chgamelist) > len(gamelist):
+        Ltext.config(foreground='Red')
+        process_del(NameList)
+    gamelist=Chgamelist
+    Var_Ltext.set('Find DiabloII：{} Game'.format(str(len(gamelist))))
+    win.after(100,find_game)
 
 def Winclose():
     win.destroy()
@@ -47,26 +68,61 @@ def WinstartMove(event):
 
 def WinMove(event):
     global Win_size,oldx,oldy
-    win.geometry('{}+{}+{}'.format('150x40',event.x-oldx+win.winfo_x(),event.y-oldy+win.winfo_y()))
+    win.geometry('{}+{}+{}'.format('552x30',event.x-oldx+win.winfo_x(),event.y-oldy+win.winfo_y()))
+
+def Winattributes(event):
+    global Att
+    Att=abs(Att-1)
+    if Att==0:
+        win.attributes('-alpha', 0.5)
+    else:
+         win.attributes('-alpha', 1)
+
 win=tk.Tk()
 win.title('多窗小工具')
-win.geometry('150x40')
 win.resizable(0,0)
 win.attributes('-toolwindow',2)
 win.attributes("-topmost", 1)
+
+
 win.overrideredirect(1)
 
+lab1=tk.Label(win,text="  Input D2rGameName：")
+Var_entry=tk.StringVar()
+
+Entry=tk.Entry(win,textvariable=Var_entry,width=20)
+Entry.insert(0,'D2R,D2RB')
+
 Var_Ltext=tk.StringVar()
-Var_Ltext.set('DiabloII：`0',)
+Var_Ltext.set('Find DiabloII：0 Game',)
+
+
 Ltext=tk.Label(win,textvariable=Var_Ltext,font=('Algerian',16))
-Ltext.place(x=25,y=5)
+Ltext.grid(
+    row=0,
+    column=1,
+    )
 
 B_Exit=tk.Button(win,text='X',relief='groove',bg='Linen',command=Winclose)
-B_Exit.place(x=5,y=7)
+B_Exit.grid(
+    row=0,
+    column=0,
+    sticky='w',padx=2)
 
-win.bind("<ButtonPress-1>", WinstartMove)
-win.bind('<B1-Motion>',WinMove)
+lab1.grid(
+    row=0,
+    column=3
+    )
 
+Entry.grid(
+    row=0,
+    column=4,padx=2
+    )
+
+Ltext.bind("<ButtonPress-1>", WinstartMove)
+Ltext.bind('<B1-Motion>',WinMove)
+win.bind("<Button-3>", Winattributes)
 
 find_game()
+
 win.mainloop()
