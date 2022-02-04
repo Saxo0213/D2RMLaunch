@@ -11,13 +11,12 @@ Att=1
 
 def M_DelProcess(name):
     global Mrun
-    D2RL=[]
     #sleep(1)
     try:
-        D2RL.append(py.find_handles_key(None,name,'DiabloII Check For Other Instances'))
+        D2RL=py.find_handles_key(None,name,'DiabloII Check For Other Instances')
     except:
         pass
-    if D2RL.count('None') != len(D2RL):
+    if D2RL != 'None':
         try:
             for L in D2RL:
                 py.close_handle(L['process_id'],L['handle'])
