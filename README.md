@@ -1,4 +1,4 @@
-# Diablo II Resurrected / D2R / MLunch
+# Diablo II Resurrected / D2R / MLaunch
 
 You can open D2R Game without ProcessExplorer / handler64
 
